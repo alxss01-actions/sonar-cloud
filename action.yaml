@@ -13,10 +13,9 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Run SonarCloud Scan
-      shell: bash
-      run: |
-        sonar-scanner \
-          -Dsonar.projectKey=${{ inputs.projectKey }} \
-          -Dsonar.organization=${{ inputs.organization }} \
-          -Dsonar.login=${{ inputs.token }}
+    - name: SonarCloud scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        SONAR_TOKEN: ${{ inputs.token }}
+        SONAR_PROJECT_KEY: ${{ inputs.projectKey }}
+        SONAR_ORGANIZATION: ${{ inputs.organization }}
