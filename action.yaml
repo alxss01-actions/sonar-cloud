@@ -1,0 +1,22 @@
+name: 'SonarCloud Scan'
+description: 'Run SonarCloud scan on the project'
+inputs:
+  projectKey:
+    description: 'SonarCloud project key'
+    required: true
+  organization:
+    description: 'SonarCloud organization'
+    required: true
+  token:
+    description: 'SonarCloud token'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Run SonarCloud Scan
+      shell: bash
+      run: |
+        sonar-scanner \
+          -Dsonar.projectKey=${{ inputs.projectKey }} \
+          -Dsonar.organization=${{ inputs.organization }} \
+          -Dsonar.login=${{ inputs.token }}
